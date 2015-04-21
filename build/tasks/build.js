@@ -44,8 +44,8 @@ gulp.task('build-css', function() {
     // restart the gulp watch task.
     .pipe(plumber())
 
-    // The changed step will communicate to browser sync when the source 
-    // files change, signaling a refresh.
+    // The changed step will analyze which files have changed and require
+    // rebuilding.
     .pipe(changed(paths.output, {extension: '.css'}))
 
     // The sourcemaps step will automatically generate sourcemaps.
