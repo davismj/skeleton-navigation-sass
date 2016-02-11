@@ -34,13 +34,13 @@ gulp.task('build-html', function () {
 
 // Next, we add a new task for building css.
 gulp.task('build-css', function() {
-  
+
   // We instruct gulp to pull the source from the path we specified in step 3.
   return gulp.src(paths.style)
 
-    // The plumber step will ensure that if we write syntactically invalid 
+    // The plumber step will ensure that if we write syntactically invalid
     // sass, even though the step won't run, the gulp task won't exit. This
-    // is helpful because it allows us to fix our syntax without having to 
+    // is helpful because it allows us to fix our syntax without having to
     // restart the gulp watch task.
     .pipe(plumber())
 
