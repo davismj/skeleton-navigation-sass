@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var changed = require('gulp-changed');
+var newer = require('gulp-newer');
 var plumber = require('gulp-plumber');
 var to5 = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
@@ -44,16 +45,17 @@ gulp.task('build-css', function() {
     // restart the gulp watch task.
     .pipe(plumber())
 
-    // The changed step will analyze which files have changed and require
-    // rebuilding.
-    .pipe(changed(paths.output, {extension: '.css'}))
+    // The newer step will analyze if any of the input files is newer that the
+    // output so that it should be rebuilt.
+    .pipe(newer(paths.styleOutput))
 
     // The sourcemaps step will automatically generate sourcemaps.
     .pipe(sourcemaps.init())
 
     // The sass step will compile the sass. We need to specify that we are
-    // using the indented syntax.
-    .pipe(sass({indentedSyntax: true}))
+    // using the indented syntax. Also, we give a list of include paths to
+    // consider for Sass @import directives.
+    .pipe(sass({indentedSyntax: true, includePaths: paths.sassIncludePaths}))
 
     // And our last steps write the output and sourcemaps to the build
     // destination. Recall from step 3 that this is dist/.
